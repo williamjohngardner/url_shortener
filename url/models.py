@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+
+class Url(models.Model):
+    url = models.URLField()
+    site_name = models.CharField(max_length=60)
+    description = models.TextField()
