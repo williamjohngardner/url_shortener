@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from url.views import IndexView
+from url.views import IndexView, CreateUserView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name="index"),
-    # url(r'^login$', LoginView.as_view(), name="login")
+    url(r'^create_user$', CreateUserView.as_view(), name="create_user")
 ]

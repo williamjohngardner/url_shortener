@@ -1,14 +1,25 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Url Shortener</title>
+    <link rel="stylesheet" href="{% static 'url/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'url/main.css' %}">
 </head>
 <body>
+    <nav role="navigation">
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active"><a href="#">Home</a></li>
+          <li role="presentation"><a href="#">Profile</a></li>
+          <li role="presentation"><a href="#">Messages</a></li>
+        </ul>
+    </nav>
 
-<h1>Yo!  Sup?</h1>
-
-{% block content %}
-{% endblock %}
+<div class="container">
+    {% block content %}
+        <h1>Yo!  Sup?</h1>
+    {% endblock %}
+</div>
 </body>
 </html>
