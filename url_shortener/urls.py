@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from url.views import IndexView, CreateUserView, LoginView, ProfileView
+from django.contrib.auth.views import login, logout
+from url.views import IndexView, CreateUserView, CreateBookmarkView, ProfileView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name="index"),
     url(r'^create_user/$', CreateUserView.as_view(), name="create_user"),
-    url(r'^login/$', LoginView.as_view(), name="login"),
-    url(r'^profile/$', ProfileView.as_view(), name="profile")
+    url(r'^login/$', login, name="login"),
+    url(r'^accounts/profile/$', ProfileView.as_view(), name="profile"),
+    url(r'^logout/$', logout, name="logout"),
+    url(r'^create_bookmark/$', CreateBookmarkView.as_view(), name="create_bookmark")
 ]

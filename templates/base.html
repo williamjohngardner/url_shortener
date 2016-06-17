@@ -10,9 +10,16 @@
 <body>
     <nav role="navigation">
         <ul class="nav nav-tabs">
-          <li role="presentation" class="active"><a href="#">Home</a></li>
+          <li role="presentation" class="active"><a href="/">Home</a></li>
           <li role="presentation"><a href="{% url 'login' %}">User Login</a></li>
           <li role="presentation"><a href="{% url 'create_user' %}">Create New User</a></li>
+          <li role="presentation"><a href="{% url 'create_bookmark' %}">Create Bookmark</a></li>
+
+          {% if request.user.is_authenticated %}
+          <li role="presentation"><a href="{% url 'logout' %}">Logout</a></li>
+          <li role="presentation"><a href="{% url 'profile' %}">User Profile</a></li>
+          <li><h5>User is logged in as: {{ request.user }}</h5></li>
+          {% endif %}
         </ul>
     </nav>
 
@@ -23,3 +30,5 @@
 </div>
 </body>
 </html>
+
+

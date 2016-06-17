@@ -10,11 +10,16 @@ from url.models import Url
 class IndexView(TemplateView):
     template_name = "index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["urls"] = Url.objects.all()
+        return context
+
 
 class LoginView(FormView):
     template_name = "registration/login.html"
     form_class = AuthenticationForm
-    success_url = "/"
+    success_url = "/profile"
 
 
 class CreateUserView(CreateView):
@@ -23,11 +28,18 @@ class CreateUserView(CreateView):
     success_url = "/"
 
 
+class CreateBookmarkView(CreateView):
+    model = Url
+    template_name = "create_bookmark.html"
+    fields = ["url", "site_name", "description", "user"]
+
+    def form_valid(self, form):
+        bookmark = form.save(commit=True)
+        bookmark.user = self.request.user
+        return super(CreateBookmarkView, self).form_valid(form)
+
+
 # @login_required
 class ProfileView(TemplateView):
-    template_name = "profile.html"
+    template_name = "accounts/profile.html"
 
-    def url_objects(self):
-        Url.objects.create()
-        data = Url.objects.all()
-        return {"data": data}
