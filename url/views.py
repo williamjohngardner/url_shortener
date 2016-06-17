@@ -28,10 +28,15 @@ class CreateUserView(CreateView):
     success_url = "/"
 
 
+class ShortenUrlView(CreateView):
+    pass
+
+
 class CreateBookmarkView(CreateView):
     model = Url
     template_name = "create_bookmark.html"
     fields = ["url", "site_name", "description", "user"]
+    success_url = "index.html"
 
     def form_valid(self, form):
         bookmark = form.save(commit=True)
@@ -42,4 +47,9 @@ class CreateBookmarkView(CreateView):
 # @login_required
 class ProfileView(TemplateView):
     template_name = "accounts/profile.html"
+
+    def profile_view(self, request):
+        print(request.user)
+        user_data = {"data": Url.objects.filter(user=request.user)}
+        return render(request, "accounts/profile.html", user_data)
 
