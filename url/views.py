@@ -4,9 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import View, TemplateView, CreateView, FormView
+from django.views.generic import View, TemplateView, CreateView, FormView, DeleteView, UpdateView, ListView
 from url.models import Url
-
 
 class IndexView(TemplateView):
     template_name = "index.html"
@@ -43,9 +42,28 @@ class CreateBookmarkView(CreateView):
         return super(CreateBookmarkView, self).form_valid(form)
 
 
-# @login_required
-class ProfileView(TemplateView):
+class DeleteBookmarkView(DeleteView):
+    model = Url
+    success_url = 'accounts/profile.html'
+    template_name = "delete_bookmark.html"
+    fields = ["url", "site_name", "description"]
+
+
+class UpdateBookmarkView(UpdateView):
+    model = Url
+    success_url = 'accounts/profile.html'
+    template_name = "update_bookmark.html"
+    fields = ["url", "site_name", "description"]
+
+
+class ProfileView(ListView):
     template_name = "accounts/profile.html"
+
+    def get_queryset(self):
+        return Url.objects.filter(user=self.request.user)
+
+    class Meta:
+        ordering = ['-site_name']
 
     def profile_view(self, request):
         print(request.user)

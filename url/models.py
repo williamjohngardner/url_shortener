@@ -11,7 +11,7 @@ class Url(models.Model):
     user = models.ForeignKey(User)
 
     class Meta:
-        ['-site_name']
+        ordering = ['-site_name']
 
     def __str__(self):
         return self.site_name

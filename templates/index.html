@@ -3,6 +3,8 @@
 
 {% block content %}
 
-<h1>All user bookmarks:</h1>
-
+<h1>Most recent user bookmarks:</h1>
+    {% for url in urls %}
+    <h3>{{ url.site_name }}  | <a href="{{ url.url }}" target="_blank">bil.ly/{{ url.hashid }}</a>  |  {{ url.user }}</h3>
+    {% endfor %}
 {% endblock %}

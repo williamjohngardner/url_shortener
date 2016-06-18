@@ -2,4 +2,9 @@
 
 {% block content %}
     <h2>Profile Page</h2>
+    {% for object in object_list %}
+        <h3>{{ object.site_name }}  |  <a href="{{ object.url }}">bil.ly/{{ object.hashid }}</a>  |  {{ object.user }}</h3>
+    <a class= "btn btn-danger" href="{% url 'update_bookmark' object.id %}">Update</a>
+    <a class= "btn btn-danger" href="{% url 'delete_bookmark' object.id %}">Delete</a>
+    {% endfor %}
 {% endblock %}
