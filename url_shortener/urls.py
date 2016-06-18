@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
-from url.views import IndexView, CreateUserView, CreateBookmarkView, ProfileView
+from url.views import IndexView, CreateUserView, CreateBookmarkView, ProfileView, ShortenUrlView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^login/$', login, name="login"),
     url(r'^accounts/profile/$', ProfileView.as_view(), name="profile"),
     url(r'^logout/$', logout, name="logout"),
-    url(r'^create_bookmark/$', CreateBookmarkView.as_view(), name="create_bookmark")
+    url(r'^create_bookmark/$', CreateBookmarkView.as_view(), name="create_bookmark"),
+    url(r'^shorten_url/$', ShortenUrlView.as_view(), name="shorten_url")
 ]

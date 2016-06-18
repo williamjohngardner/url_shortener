@@ -29,17 +29,22 @@ class CreateUserView(CreateView):
 
 
 class ShortenUrlView(CreateView):
-    pass
+    template_name = "shorten_url.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["urls"] = Url.objects.all()
+        return context
 
 
 class CreateBookmarkView(CreateView):
     model = Url
     template_name = "create_bookmark.html"
-    fields = ["url", "site_name", "description", "user"]
-    success_url = "index.html"
+    fields = ["url", "site_name", "description"]
+    success_url = "/"
 
     def form_valid(self, form):
-        bookmark = form.save(commit=True)
+        bookmark = form.save(commit=False)
         bookmark.user = self.request.user
         return super(CreateBookmarkView, self).form_valid(form)
 
