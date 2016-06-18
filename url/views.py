@@ -4,8 +4,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import View, TemplateView, CreateView, FormView, DeleteView, UpdateView, ListView
+from django.views.generic import View, TemplateView, CreateView, FormView, DeleteView, \
+                                 UpdateView, ListView, RedirectView
 from url.models import Url
+
 
 class IndexView(TemplateView):
     template_name = "index.html"
@@ -44,14 +46,14 @@ class CreateBookmarkView(CreateView):
 
 class DeleteBookmarkView(DeleteView):
     model = Url
-    success_url = 'accounts/profile.html'
+    success_url = '/accounts/profile'
     template_name = "delete_bookmark.html"
     fields = ["url", "site_name", "description"]
 
 
 class UpdateBookmarkView(UpdateView):
     model = Url
-    success_url = 'accounts/profile.html'
+    success_url = '/accounts/profile'
     template_name = "update_bookmark.html"
     fields = ["url", "site_name", "description"]
 
@@ -63,10 +65,20 @@ class ProfileView(ListView):
         return Url.objects.filter(user=self.request.user)
 
     class Meta:
-        ordering = ['-site_name']
+        ordering = ['-created']
 
     def profile_view(self, request):
         print(request.user)
         user_data = {"data": Url.objects.filter(user=request.user)}
         return render(request, "accounts/profile.html", user_data)
+
+
+class DisplayClickRedirectView(RedirectView):
+
+    def get(self, request, *args, **kwargs):
+        hash_id = self.kwargs.get('hashid', None)
+        link = Url.objects.get(pk=hash_id)
+        self.url = link.url
+        link.click_count += 1
+        return super(DisplayClickRedirectView, self).get(request, *args, **kwargs)
 

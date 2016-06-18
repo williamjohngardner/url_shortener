@@ -9,14 +9,17 @@ class Url(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     hashid = models.CharField(max_length=50)
     user = models.ForeignKey(User)
+    click_count = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ['-site_name']
+        ordering = ['-created']
 
     def __str__(self):
         return self.site_name
 
 
-# class Click(models.Model):
-    # url = models.URLField()
-    # This model should track each time a url that is bookmarked is used.
+class Click(models.Model):
+    url = models.ForeignKey(Url)
+    created = models.DateTimeField(auto_now_add=True)
+
+
