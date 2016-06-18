@@ -7,6 +7,7 @@ class Url(models.Model):
     site_name = models.CharField(max_length=60)
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+    hashid = models.CharField(max_length=50)
     user = models.ForeignKey(User)
 
     class Meta:

@@ -1,3 +1,4 @@
+from hashids import Hashids
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -28,15 +29,6 @@ class CreateUserView(CreateView):
     success_url = "/"
 
 
-class ShortenUrlView(CreateView):
-    template_name = "shorten_url.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["urls"] = Url.objects.all()
-        return context
-
-
 class CreateBookmarkView(CreateView):
     model = Url
     template_name = "create_bookmark.html"
@@ -44,7 +36,9 @@ class CreateBookmarkView(CreateView):
     success_url = "/"
 
     def form_valid(self, form):
+        hashids = Hashids(salt="unicornponybagelwhisper")
         bookmark = form.save(commit=False)
+        bookmark.hashid = hashids.encode(id(bookmark.url))
         bookmark.user = self.request.user
         return super(CreateBookmarkView, self).form_valid(form)
 
