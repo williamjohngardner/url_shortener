@@ -21,5 +21,3 @@ class Url(models.Model):
 class Click(models.Model):
     url = models.ForeignKey(Url)
     created = models.DateTimeField(auto_now_add=True)
-
-

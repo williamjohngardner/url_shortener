@@ -77,7 +77,7 @@ class DisplayClickRedirectView(RedirectView):
 
     def get(self, request, *args, **kwargs):
         hash_id = self.kwargs.get('hashid', None)
-        link = Url.objects.get(pk=hash_id)
+        link = Url.objects.get(hashid=hash_id)
         self.url = link.url
         link.click_count += 1
         return super(DisplayClickRedirectView, self).get(request, *args, **kwargs)

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login, logout
 from url.views import IndexView, CreateUserView, CreateBookmarkView, ProfileView, \
-                      DeleteBookmarkView, UpdateBookmarkView, RedirectView
+                      DeleteBookmarkView, UpdateBookmarkView, DisplayClickRedirectView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -30,6 +30,6 @@ urlpatterns = [
     url(r'^create_bookmark/$', CreateBookmarkView.as_view(), name="create_bookmark"),
     url(r'^delete_bookmark/(?P<pk>\d+)$', DeleteBookmarkView.as_view(), name="delete_bookmark"),
     url(r'^update_bookmark/(?P<pk>\d+)$', UpdateBookmarkView.as_view(), name="update_bookmark"),
-    url(r'^(?P<hashid>\w+)/$', RedirectView.as_view(), name="redirect")
+    url(r'^/(?P<hashid>\w+)/$', DisplayClickRedirectView.as_view(), name="redirect")
 
 ]
