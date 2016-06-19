@@ -6,7 +6,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View, TemplateView, CreateView, FormView, DeleteView, \
                                  UpdateView, ListView, RedirectView
-from url.models import Url
+from url.models import Url, Click
+import datetime
 
 
 class IndexView(TemplateView):
@@ -80,5 +81,7 @@ class DisplayClickRedirectView(RedirectView):
         link = Url.objects.get(hashid=hash_id)
         self.url = link.url
         link.click_count += 1
+        link.save()
+        Click.objects.create(url=link, created=datetime.datetime.now())
         return super(DisplayClickRedirectView, self).get(request, *args, **kwargs)
 
