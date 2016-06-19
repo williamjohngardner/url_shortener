@@ -17,12 +17,12 @@
           {% if request.user.is_authenticated %}
           <li role="presentation" class="active"><a href="{% url 'create_bookmark' %}">Create Bookmark</a></li>
           <li role="presentation" class="active"><a href="{% url 'profile' %}">User Profile</a></li>
-          <li role="presentation" class="active"><a href="{% url 'logout' %}">Logout</a></li>
-          <li role="presentation" class="active"><a href="">User is logged in as: {{ request.user }}</a></li>
+          <li role="presentation" class="active"><a href="{% url 'logout' %}?next=/">Logout</a></li>
+              <li class="navbar-text"><strong>User is logged in as: {{ request.user }}</strong></li>
           {% endif %}
         </ul>
-    </nav>
 
+    </nav>
 <div class="container">
     {% block content %}
         <h1>Yo!  Sup?</h1>

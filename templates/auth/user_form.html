@@ -2,10 +2,13 @@
 
 {% block content %}
     <div class="container">
+        <div class="page-header">
+        <h3>Create a user to be able to create, save, and edit bookmarks</h3>
+        </div>
         <form action="" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Create User">
+            <pre>{{ form.as_p }}</pre>
+            <input type="submit" value="Create User" class="btn btn-primary">
         </form>
     </div>
 {% endblock %}

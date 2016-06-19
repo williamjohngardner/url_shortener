@@ -1,10 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Profile Page</h2>
+    <div class="page-header">
+    <h2>{{ request.user }}'s Profile Page</h2>
+    </div>
+    <table class="table table-striped table-bordered">
+    <tr>
+        <th>Site Name</th>
+        <th>Bil.ly Url</th>
+        <th>Click Count</th>
+        <th>User</th>
+        <th></th>
+    </tr>
     {% for object in object_list %}
-        <h3>{{ object.site_name }}  |  <a href="{% url 'redirect' object.hashid %}">bil.ly/{{ object.hashid }}</a>  |  {{ object.user }}</h3>
-    <a class= "btn btn-danger" href="{% url 'update_bookmark' object.id %}">Update</a>
-    <a class= "btn btn-danger" href="{% url 'delete_bookmark' object.id %}">Delete</a>
+    <tr>
+        <td><h4>{{ object.site_name }}</h4></td>
+        <td><a href="{% url 'redirect' object.hashid %}" target="_blank">bil.ly/{{ object.hashid }}</a></td>
+        <td>{{ object.click_count }}</td>
+        <td>{{ object.user }}</td>
+        <td><a class= "btn btn-primary" href="{% url 'update_bookmark' object.id %}">Update</a>
+        <a class= "btn btn-danger" href="{% url 'delete_bookmark' object.id %}">Delete</a></td>
+    </tr>
     {% endfor %}
 {% endblock %}
