@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'url',
+    'whitenoise'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -121,3 +122,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'

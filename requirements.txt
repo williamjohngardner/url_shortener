@@ -1,3 +1,4 @@
 django
 hashids
 gunicorn
+whitenoise
