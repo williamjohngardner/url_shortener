@@ -1,16 +1,15 @@
 {% extends "base.html" %}
+{% load bootstrap %}
 
 {% block content %}
     <div class="container">
-    <div class="page-header">
-    <h3>Login with an existing user account to create and edit bookmarks</h3>
-    </div>
-
-    <form action="" method="post">
+      <div class="page-header">
+        <h3>Login with an existing user account to create and edit bookmarks</h3>
+      </div>
+      <form action="" method="post">
         {% csrf_token %}
-        <pre>{{ form.as_p }}</pre>
+          {{ form|bootstrap }}
         <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
-    </form>
+      </form>
     </div>
 {% endblock %}
-

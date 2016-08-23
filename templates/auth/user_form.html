@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load bootstrap %}
 
 {% block content %}
     <div class="container">
         <div class="page-header">
-        <h3>Create a user to be able to create, save, and edit bookmarks</h3>
+          <h3>Create a user to be able to create, save, and edit bookmarks</h3>
         </div>
         <form action="" method="post">
             {% csrf_token %}
-            <pre>{{ form.as_p }}</pre>
+              {{ form|bootstrap }}
             <input type="submit" value="Create User" class="btn btn-primary">
         </form>
     </div>

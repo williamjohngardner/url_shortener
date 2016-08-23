@@ -2,3 +2,4 @@ django
 hashids
 gunicorn
 whitenoise
+django-bootstrap-form

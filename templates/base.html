@@ -1,34 +1,33 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>Url Shortener</title>
-    <link rel="stylesheet" href="{% static 'url/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'url/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'url/main.css' %}">
-</head>
-<body>
+  </head>
+  <body>
     <nav role="navigation">
-        <ul class="nav nav-tabs">
-          <li role="presentation" class="active"><a href="/">Home</a></li>
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="/">Home</a></li>
+        {% if not request.user.is_authenticated %}
           <li role="presentation" class="active"><a href="{% url 'login' %}">User Login</a></li>
           <li role="presentation" class="active"><a href="{% url 'create_user' %}">Create New User</a></li>
-
-          {% if request.user.is_authenticated %}
+        {% endif %}
+        {% if request.user.is_authenticated %}
           <li role="presentation" class="active"><a href="{% url 'create_bookmark' %}">Create Bookmark</a></li>
           <li role="presentation" class="active"><a href="{% url 'profile' %}">User Profile</a></li>
           <li role="presentation" class="active"><a href="{% url 'logout' %}?next=/">Logout</a></li>
-              <li class="navbar-text"><strong>User is logged in as: {{ request.user }}</strong></li>
-          {% endif %}
-        </ul>
-
+          <li class="navbar-text"><strong>User is logged in as: {{ request.user }}</strong></li>
+        {% endif %}
+      </ul>
     </nav>
-<div class="container">
-    {% block content %}
-        <h1>Yo!  Sup?</h1>
-    {% endblock %}
-</div>
-</body>
+    <div class="container">
+      {% block content %}
+          There is no content here.
+      {% endblock %}
+    </div>
+  </body>
 </html>
-
-
